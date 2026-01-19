@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Eliminar historial</h1>
+
+<p>¿Estás seguro de eliminar el historial de <strong>{{ object.pet_name }}</strong>?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+</form>
+
+<a href="{% url 'pages:list' %}" class="btn btn-secondary mt-2">Cancelar</a>
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}About | Historial Vet{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- TÍTULO -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Sobre Historial Vet 🐾</h1>
+        <p class="text-muted fs-5 mt-2">
+            Una plataforma pensada para el cuidado y seguimiento de mascotas
+        </p>
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="row align-items-center mb-5">
+        <div class="col-md-6">
+            <h3>¿Qué es Historial Vet?</h3>
+            <p>
+                Historial Vet es una aplicación web que permite a los usuarios
+                registrar y gestionar historiales clínicos de sus mascotas
+                de forma simple, ordenada y segura.
+            </p>
+
+            <p>
+                Cada usuario puede crear historiales para distintas especies
+                como perros, gatos o caballos, agregando información clínica
+                relevante y, si lo desea, imágenes.
+            </p>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <img src="https://images.unsplash.com/photo-1558788353-f76d92427f16"
+                 class="img-fluid rounded shadow"
+                 alt="Mascotas">
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="row text-center mb-5">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>🔐 Privacidad</h4>
+                    <p>
+                        Cada usuario accede únicamente a sus propios historiales.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>📋 Organización</h4>
+                    <p>
+                        Toda la información clínica en un solo lugar.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 h-100">
+                <div class="card-body">
+                    <h4>🐶 Mascotas</h4>
+                    <p>
+                        Soporte para distintas especies y múltiples historiales.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CIERRE -->
+    <div class="text-center p-4 bg-light rounded shadow-sm">
+        <h4>Proyecto educativo</h4>
+        <p class="mb-0">
+            Este proyecto fue desarrollado con Django como práctica de
+            desarrollo web full stack.
+        </p>
+    </div>
+
+</div>
+
+{% endblock %}

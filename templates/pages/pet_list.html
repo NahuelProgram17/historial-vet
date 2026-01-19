@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Mis Mascotas</h1>
+
+{% if pets %}
+    <ul class="list-group">
+        {% for pet in pets %}
+            <li class="list-group-item">
+                <strong>{{ pet.name }}</strong> ({{ pet.species }})
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No tenés mascotas registradas.</p>
+{% endif %}
+
+{% endblock %}

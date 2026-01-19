@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{{ pet.name }} ({{ pet.get_species_display }})</h2>
+
+<h3>Historiales clínicos</h3>
+
+{% if records %}
+    <ul>
+        {% for record in records %}
+            <li>
+                {{ record.created_at|date:"d/m/Y" }}
+                - <a href="{% url 'pages:detail' record.pk %}">Ver</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No hay historiales clínicos.</p>
+{% endif %}
+
+<a href="{% url 'pages:create' %}">➕ Crear historial</a>
+{% endblock %}

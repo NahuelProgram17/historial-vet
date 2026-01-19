@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Historiales Clínicos{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">📋 Historiales Clínicos</h1>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'pages:create' %}" class="btn btn-success mb-4">
+        + Crear nuevo historial
+    </a>
+{% endif %}
+
+{% if records %}
+<div class="row g-4">
+    {% for record in records %}
+    <div class="col-md-4">
+        <div class="card h-100 shadow-sm">
+
+            {% if record.image %}
+                <img src="{{ record.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+            {% else %}
+                <img src="https://via.placeholder.com/400x200?text=Sin+imagen"
+                class="card-img-top" style="height:200px; object-fit:cover;">
+            {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">
+                    🐾 {{ record.pet_name }}
+                </h5>
+
+                <span class="badge 
+                    {% if record.species == 'perro' %} bg-primary
+                    {% elif record.species == 'gato' %} bg-warning text-dark
+                    {% else %} bg-secondary
+                    {% endif %}
+                ">
+                    {{ record.get_species_display }}
+                </span>
+
+                <p class="card-text mt-3 text-muted">
+                    {{ record.clinical_history|striptags|truncatechars:100 }}
+                </p>
+            </div>
+
+            <div class="card-footer bg-white border-0 d-flex gap-2">
+                <a href="{% url 'pages:detail' record.pk %}"
+                    class="btn btn-outline-primary btn-sm w-100">
+                    Ver
+                </a>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'pages:update' record.pk %}"
+                        class="btn btn-outline-warning btn-sm w-100">
+                        Editar
+                    </a>
+                    <a href="{% url 'pages:delete' record.pk %}"
+                        class="btn btn-outline-danger btn-sm w-100">
+                        Eliminar
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No hay historiales clínicos registrados.</p>
+{% endif %}
+
+{% endblock %}

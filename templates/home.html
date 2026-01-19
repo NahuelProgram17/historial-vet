@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio | Historial Vet{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+    <div class="container-fluid py-5 text-center">
+        <h1 class="display-5 fw-bold">🐾 Historial Vet</h1>
+        <p class="fs-4 mt-3">
+            Gestioná los historiales clínicos de tus mascotas
+            de forma simple, segura y online.
+        </p>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'pages:list' %}" class="btn btn-success btn-lg mt-3">
+                Ver mis historiales
+            </a>
+        {% else %}
+            <a href="{% url 'signup' %}" class="btn btn-primary btn-lg mt-3">
+                Registrarse
+            </a>
+            <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg mt-3 ms-2">
+                Iniciar sesión
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- FEATURES -->
+<div class="row text-center mb-5">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h3>📋 Historiales</h3>
+                <p>
+                    Creá y administrá historiales clínicos
+                    detallados para cada mascota.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h3>🐶 Mascotas</h3>
+                <p>
+                    Registrá mascotas de distintas especies
+                    y asociá su información médica.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+                <h3>🔐 Seguridad</h3>
+                <p>
+                    Cada usuario accede únicamente a sus
+                    propios historiales.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA FINAL -->
+<div class="text-center p-4 bg-dark text-white rounded shadow-sm">
+    <h2>¿Listo para empezar?</h2>
+    <p class="mt-2">
+        Registrate y comenzá a llevar el control clínico
+        de tus mascotas hoy mismo.
+    </p>
+
+    {% if not user.is_authenticated %}
+        <a href="{% url 'signup' %}" class="btn btn-light btn-lg mt-2">
+            Crear cuenta
+        </a>
+    {% endif %}
+</div>
+
+{% endblock %}

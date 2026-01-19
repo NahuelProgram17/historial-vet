@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Historial de {{ object.pet_name }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+
+        <div class="card shadow-sm">
+
+    {% if object.image %}
+<div class="text-center mb-3">
+    <img src="{{ object.image.url }}"
+        alt="Imagen de {{ object.pet_name }}"
+        class="img-fluid rounded shadow-sm"
+        style="
+            max-width: 420px;
+            max-height: 420px;
+            object-fit: cover;
+        ">
+</div>
+{% endif %}
+
+            <div class="card-body">
+
+                <h2 class="card-title mb-2">
+                    🐾 {{ object.pet_name }}
+                </h2>
+
+                {% if object.species == 'perro' %}
+    <span class="badge bg-primary fs-6 mb-3">
+        {{ object.get_species_display }}
+    </span>
+{% elif object.species == 'gato' %}
+    <span class="badge bg-warning text-dark fs-6 mb-3">
+        {{ object.get_species_display }}
+    </span>
+{% else %}
+    <span class="badge bg-secondary fs-6 mb-3">
+        {{ object.get_species_display }}
+    </span>
+{% endif %}
+
+                <hr>
+
+                <h5 class="mb-2">🩺 Historial Clínico</h5>
+
+                <div class="border rounded p-3 bg-light">
+                    {{ object.clinical_history|safe }}
+                </div>
+
+                <p class="text-muted mt-3 mb-0">
+                    📅 Creado el {{ object.created_at|date:"d/m/Y" }}
+                </p>
+            </div>
+
+            <div class="card-footer bg-white d-flex gap-2">
+    <a href="{% url 'pages:list' %}" class="btn btn-outline-secondary w-50">
+        ← Volver
+    </a>
+
+    {% if user.is_authenticated and object.owner == user %}
+        <a href="{% url 'pages:update' object.pk %}" class="btn btn-warning w-25">
+            Editar
+
+        </a>
+        <a href="{% url 'pages:delete' object.pk %}" class="btn btn-danger w-25">
+            Eliminar
+        </a>
+    {% endif %}
+
+</div>
+
+{% endblock %}
