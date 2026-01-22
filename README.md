@@ -1,79 +1,112 @@
-# 🐾 Historial Vet
+# 🐾 Historial Vet – Proyecto Final Django
 
-Aplicación web desarrollada en **Python con Django** para la gestión de historiales clínicos de mascotas (perros, gatos, caballos, etc.), con sistema de usuarios, autenticación, perfiles y control de acceso por dueño.
-
-El objetivo del proyecto es permitir que cada usuario pueda registrar y administrar los historiales clínicos de sus propias mascotas de forma segura y organizada.
-
----
-
-## 🚀 Funcionalidades principales
-
-- Registro y autenticación de usuarios
-- Perfil de usuario editable
-- Creación, edición y eliminación de historiales clínicos
-- Asociación de historiales a un usuario (seguridad por propietario)
-- Carga de imágenes de mascotas
-- Editor de texto enriquecido para el historial clínico (CKEditor)
-- Mensajes de confirmación (crear, editar, eliminar)
-- Navegación clara con Navbar
-- Páginas informativas: Home y About
-- Panel de administración (Django Admin)
+Aplicación web desarrollada en **Python + Django** como proyecto final del Playground.  
+Permite gestionar historiales clínicos veterinarios, perfiles de usuario y mensajería interna.
 
 ---
 
-## 🔐 Seguridad
+## 🚀 Funcionalidades
 
-- Acceso restringido mediante login
-- Cada usuario solo puede ver, editar y eliminar **sus propios historiales**
-- Protección CSRF en formularios
-- Uso de `LoginRequiredMixin` y filtrado por usuario (`owner`)
+- Registro, login y logout de usuarios
+- Perfil de usuario con:
+  - Nombre
+  - Apellido
+  - Email
+  - Avatar
+  - Biografía
+  - Edición de perfil y cambio de contraseña
+- Gestión de historiales clínicos:
+  - Crear, listar, ver, editar y eliminar historiales
+  - Cada historial contiene:
+    - Nombre de la mascota
+    - Edad
+    - Especie
+    - Historial clínico (texto enriquecido con CKEditor)
+    - Vacunas (rabia, moquillo y parvovirus con dosis)
+    - Imagen
+    - Fecha de creación
+- Solo el usuario propietario puede editar o eliminar sus historiales
+- Mensajería interna entre usuarios
+- Vistas Home y About
+- Mensajes flash para notificaciones al usuario
+- Panel de administración de Django
 
 ---
 
-## 🛠️ Tecnologías utilizadas
+## 🧰 Tecnologías utilizadas
 
-- **Python 3.11**
-- **Django**
-- **SQLite3** (entorno de desarrollo)
-- **Bootstrap 5**
-- **django-ckeditor**
-- HTML5 / CSS3
+- Python 3.11
+- Django 5
+- Django CKEditor
+- Bootstrap 5
+- SQLite (desarrollo)
 
 ---
 
 ## 📁 Estructura del proyecto
 
-```bash
-historial-vet/
+blog_final/
 │
-├── accounts/        # Autenticación, registro y perfil de usuario
-├── pages/           # Historiales clínicos (CRUD)
-├── core/            # Home y About
-├── messenger/       # Sistema de mensajería (en desarrollo)
-├── templates/       # Templates HTML
-├── static/          # Archivos estáticos
-├── config/          # Configuración del proyecto
+├── accounts/
+├── core/
+├── pages/
+├── messenger/
+├── templates/
+├── static/
+├── media/
+├── config/
 ├── manage.py
-└── requirements.txt
+├── requirements.txt
+└── README.md
 
-⚙️ Instalación y uso
-1️⃣ Clonar el repositorio
+## ⚙️ Instalación y ejecución
+
+### 1️⃣ Clonar el repositorio
 git clone https://github.com/NahuelProgram17/historial-vet.git
 cd historial-vet
 
-2️⃣ Crear entorno virtual
+2️⃣ Crear y activar entorno virtual
 python -m venv venv
-source venv/bin/activate  # Linux / Mac
-venv\Scripts\activate     # Windows
+venv\Scripts\activate
 
 3️⃣ Instalar dependencias
 pip install -r requirements.txt
 
 4️⃣ Migraciones
+python manage.py makemigrations
 python manage.py migrate
 
 5️⃣ Crear superusuario
 python manage.py createsuperuser
 
-6️⃣ Ejecutar el servidor
+6️⃣ Ejecutar servidor
 python manage.py runserver
+
+Abrir en el navegador:
+
+http://127.0.0.1:8000/
+
+🔐 Accesos y permisos
+
+Las vistas de creación, edición y eliminación requieren autenticación
+Cada usuario solo puede modificar sus propios historiales
+La mensajería está disponible únicamente para usuarios registrados
+
+📝 Consideraciones
+
+El archivo db.sqlite3 no se incluye en el repositorio
+La carpeta media/ está excluida mediante .gitignore
+Se utiliza herencia de templates con base.html
+Los formularios con imágenes usan enctype="multipart/form-data"
+
+🎥 Video de demostración
+El video muestra:
+Registro e inicio de sesión
+Perfil de usuario
+CRUD de historiales clínicos
+Mensajería entre usuarios
+Navegación general del sitio
+
+👤 Autor
+Nahuel Pedreyra
+Proyecto Final – Django Playground
