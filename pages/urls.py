@@ -6,6 +6,8 @@ from .views import (
     ClinicalRecordUpdateView,
     ClinicalRecordDeleteView,
 )
+from .views import dashboard
+
 
 app_name = 'pages'
 
@@ -15,4 +17,5 @@ urlpatterns = [
     path('<int:pk>/', ClinicalRecordDetailView.as_view(), name='detail'),
     path('<int:pk>/update/', ClinicalRecordUpdateView.as_view(), name='update'),
     path('<int:pk>/delete/', ClinicalRecordDeleteView.as_view(), name='delete'),
+    path('dashboard/', dashboard, name='dashboard'),
 ]

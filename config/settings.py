@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 
     # CKEditor
     'ckeditor',
@@ -46,7 +47,10 @@ INSTALLED_APPS = [
     'core',
     'pages',
     'accounts.apps.AccountsConfig',
+    
+    # 👉 MENSAJERÍA
     'messenger',
+    
 ]
 
 MIDDLEWARE = [
@@ -67,13 +71,12 @@ TEMPLATES = [
         'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
-        'context_processors': [
-            'django.template.context_processors.debug',
-            'django.template.context_processors.request',
-            'django.contrib.auth.context_processors.auth',
-            'django.contrib.messages.context_processors.messages',
-            'django.template.context_processors.csrf',
-],
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
         },
     },
 ]

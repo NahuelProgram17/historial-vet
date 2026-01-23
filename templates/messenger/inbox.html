@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-3">📥 Bandeja de entrada</h2>
+
+<a href="{% url 'messenger:send' %}" class="btn btn-success mb-3">
+    Enviar mensaje
+</a>
+
+{% if messages %}
+    <div class="list-group">
+        {% for message in messages %}
+            <div class="list-group-item mb-2 shadow-sm">
+                <div class="d-flex justify-content-between">
+                    <strong>De: {{ message.sender.username }}</strong>
+                    <small class="text-muted">
+                        {{ message.created_at|date:"d/m/Y H:i" }}
+                    </small>
+                </div>
+
+                <p class="mt-2 mb-2">
+                    {{ message.content }}
+                </p>
+
+                {% if message.attachment %}
+                    <p class="mb-2">
+                        📎 Archivo adjunto:
+                        <a href="{{ message.attachment.url }}" target="_blank">
+                            Descargar
+                        </a>
+                    </p>
+                {% endif %}
+
+                <a href="{% url 'messenger:send' %}?to={{ message.sender.id }}"
+                class="btn btn-outline-primary btn-sm">
+                    Responder
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No tenés mensajes.</p>
+{% endif %}
+
+{% endblock %}

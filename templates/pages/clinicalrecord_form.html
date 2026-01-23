@@ -1,14 +1,90 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Historial Clínico</h1>
+<h1 class="mb-4">Historial Clínico</h1>
 
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
     {% csrf_token %}
     {{ form.media }}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Guardar</button>
-</form>
 
-<a href="{% url 'pages:list' %}" class="btn btn-secondary mt-2">Volver</a>
+    <!-- 🐾 DATOS BÁSICOS -->
+    <h5 class="mb-3">🐾 Datos de la mascota</h5>
+
+    <!-- Nombre -->
+    <div class="mb-3">
+        {{ form.pet_name.label_tag }}
+        {{ form.pet_name }}
+    </div>
+
+    <!-- Edad -->
+    <div class="mb-3">
+        {{ form.age.label_tag }}
+        {{ form.age }}
+    </div>
+
+    <!-- Especie -->
+    <div class="mb-3">
+        {{ form.species.label_tag }}
+        {{ form.species }}
+    </div>
+
+    <hr>
+
+    <!-- 💉 VACUNAS -->
+    <h5 class="mb-3">💉 Vacunas</h5>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-check mb-2">
+                {{ form.rabia }}
+                {{ form.rabia.label_tag }}
+            </div>
+            {{ form.rabia_doses.label_tag }}
+            {{ form.rabia_doses }}
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-check mb-2">
+                {{ form.moquillo }}
+                {{ form.moquillo.label_tag }}
+            </div>
+            {{ form.moquillo_doses.label_tag }}
+            {{ form.moquillo_doses }}
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-check mb-2">
+                {{ form.parvovirus }}
+                {{ form.parvovirus.label_tag }}
+            </div>
+            {{ form.parvovirus_doses.label_tag }}
+            {{ form.parvovirus_doses }}
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- 🩺 HISTORIAL CLÍNICO -->
+    <div class="mb-3">
+        {{ form.clinical_history.label_tag }}
+        {{ form.clinical_history }}
+    </div>
+
+    <!-- 📷 IMAGEN -->
+    <div class="mb-3">
+        {{ form.image.label_tag }}
+        {{ form.image }}
+    </div>
+
+    <!-- BOTONES -->
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success">
+            💾 Guardar
+        </button>
+
+        <a href="{% url 'pages:list' %}" class="btn btn-secondary ms-2">
+            Volver
+        </a>
+    </div>
+</form>
 {% endblock %}

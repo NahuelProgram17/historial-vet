@@ -18,24 +18,46 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import home, about
-
-
+from django.contrib.auth import views as auth_views
+from core.views import home, about
 
 urlpatterns = [
     path('', home, name='home'),
-    path('admin/', admin.site.urls),
-    path('', include('core.urls')),
-    path('pages/', include('pages.urls')),
     path('about/', about, name='about'),
 
-    
+    path('admin/', admin.site.urls),
+
+    path('', include('core.urls')),
+    path('pages/', include('pages.urls')),
+    path('messages/', include('messenger.urls')),
+
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls')),
+
     path('ckeditor/', include('ckeditor_uploader.urls')),
+
+    path(
+        'accounts/password/change/',
+        auth_views.PasswordChangeView.as_view(
+            template_name='accounts/password_change.html'
+        ),
+        name='password_change'
+    ),
+    path(
+        'accounts/password/change/done/',
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name='accounts/password_change_done.html'
+        ),
+        name='password_change_done'
+    ),
 ]
 
+# Archivos media (imagenes, adjuntos)
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )
+
 
 

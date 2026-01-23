@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Enviar mensaje{% endblock %}
+
+{% block content %}
+<h2>✉️ Enviar mensaje</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Para:</label>
+        <select name="receiver" class="form-select" required>
+            {% for user in users %}
+                <option value="{{ user.id }}"
+                    {% if receiver_id and receiver_id|add:"0" == user.id %}selected{% endif %}>
+                    {{ user.username }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Mensaje:</label>
+        <textarea name="content" class="form-control" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Adjuntar archivo (opcional):</label>
+        <input type="file" name="attachment" class="form-control">
+    </div>
+
+    <button class="btn btn-success">Enviar</button>
+</form>
+
+{% endblock %}

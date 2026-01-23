@@ -38,9 +38,9 @@
                     {{ record.get_species_display }}
                 </span>
 
-                <p class="card-text mt-3 text-muted">
-                    {{ record.clinical_history|striptags|truncatechars:100 }}
-                </p>
+                <p class="card-text">
+                🐾 {{ record.pet_name }} — {{ record.age }} años</p>
+
             </div>
 
             <div class="card-footer bg-white border-0 d-flex gap-2">

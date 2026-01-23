@@ -8,41 +8,81 @@
 
         <div class="card shadow-sm">
 
-    {% if object.image %}
-<div class="text-center mb-3">
-    <img src="{{ object.image.url }}"
-        alt="Imagen de {{ object.pet_name }}"
-        class="img-fluid rounded shadow-sm"
-        style="
-            max-width: 420px;
-            max-height: 420px;
-            object-fit: cover;
-        ">
-</div>
-{% endif %}
+            {% if object.image %}
+            <div class="text-center my-3">
+                <img src="{{ object.image.url }}"
+                    alt="Imagen de {{ object.pet_name }}"
+                    class="img-fluid rounded shadow-sm"
+                    style="max-width: 420px; max-height: 420px; object-fit: cover;">
+            </div>
+            {% endif %}
 
             <div class="card-body">
 
-                <h2 class="card-title mb-2">
-                    🐾 {{ object.pet_name }}
-                </h2>
+                <!-- Nombre + especie -->
+                <h2 class="card-title mb-2">🐾 {{ object.pet_name }}</h2>
+                <p class="text-muted mb-2">
+                🎂 Edad: <strong>{{ object.age }} años</strong></p>
 
                 {% if object.species == 'perro' %}
-    <span class="badge bg-primary fs-6 mb-3">
-        {{ object.get_species_display }}
-    </span>
-{% elif object.species == 'gato' %}
-    <span class="badge bg-warning text-dark fs-6 mb-3">
-        {{ object.get_species_display }}
-    </span>
-{% else %}
-    <span class="badge bg-secondary fs-6 mb-3">
-        {{ object.get_species_display }}
-    </span>
-{% endif %}
+                    <span class="badge bg-primary fs-6 mb-3">
+                        {{ object.get_species_display }}
+                    </span>
+                {% elif object.species == 'gato' %}
+                    <span class="badge bg-warning text-dark fs-6 mb-3">
+                        {{ object.get_species_display }}
+                    </span>
+                {% else %}
+                    <span class="badge bg-secondary fs-6 mb-3">
+                        {{ object.get_species_display }}
+                    </span>
+                {% endif %}
 
                 <hr>
 
+                <!-- VACUNAS -->
+                <div class="border rounded p-3 bg-light mb-4">
+                    <h5 class="mb-3">💉 Vacunas</h5>
+
+                    <ul class="list-group">
+
+                        {% if object.rabia %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Vacuna contra la Rabia
+                            <span class="badge bg-success">
+                                {{ object.rabia_doses }} dosis
+                            </span>
+                        </li>
+                        {% endif %}
+
+                        {% if object.moquillo %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Moquillo
+                            <span class="badge bg-success">
+                                {{ object.moquillo_doses }} dosis
+                            </span>
+                        </li>
+                        {% endif %}
+
+                        {% if object.parvovirus %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Parvovirus
+                            <span class="badge bg-success">
+                                {{ object.parvovirus_doses }} dosis
+                            </span>
+                        </li>
+                        {% endif %}
+
+                        {% if not object.rabia and not object.moquillo and not object.parvovirus %}
+                        <li class="list-group-item text-muted text-center">
+                            No hay vacunas registradas
+                        </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+
+                <!-- HISTORIAL CLÍNICO -->
                 <h5 class="mb-2">🩺 Historial Clínico</h5>
 
                 <div class="border rounded p-3 bg-light">
@@ -54,21 +94,23 @@
                 </p>
             </div>
 
+            <!-- FOOTER -->
             <div class="card-footer bg-white d-flex gap-2">
-    <a href="{% url 'pages:list' %}" class="btn btn-outline-secondary w-50">
-        ← Volver
-    </a>
+                <a href="{% url 'pages:list' %}" class="btn btn-outline-secondary w-50">
+                    ← Volver
+                </a>
 
-    {% if user.is_authenticated and object.owner == user %}
-        <a href="{% url 'pages:update' object.pk %}" class="btn btn-warning w-25">
-            Editar
+                {% if user.is_authenticated and object.owner == user %}
+                    <a href="{% url 'pages:update' object.pk %}" class="btn btn-warning w-25">
+                        Editar
+                    </a>
+                    <a href="{% url 'pages:delete' object.pk %}" class="btn btn-danger w-25">
+                        Eliminar
+                    </a>
+                {% endif %}
+            </div>
 
-        </a>
-        <a href="{% url 'pages:delete' object.pk %}" class="btn btn-danger w-25">
-            Eliminar
-        </a>
-    {% endif %}
-
+        </div>
+    </div>
 </div>
-
 {% endblock %}

@@ -2,8 +2,9 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-
 from .models import ClinicalRecord
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 class ClinicalRecordListView(LoginRequiredMixin, ListView):
     model = ClinicalRecord
@@ -24,7 +25,14 @@ class ClinicalRecordDetailView(LoginRequiredMixin, DetailView):
 
 class ClinicalRecordCreateView(LoginRequiredMixin, CreateView):
     model = ClinicalRecord
-    fields = ['pet_name', 'species', 'clinical_history', 'image']
+    fields = ['pet_name',
+    'age',
+    'species',
+    'clinical_history',
+    'rabia', 'rabia_doses',
+    'moquillo', 'moquillo_doses',
+    'parvovirus', 'parvovirus_doses',
+    'image']
     template_name = 'pages/clinicalrecord_form.html'
     success_url = reverse_lazy('pages:list')
 
@@ -39,7 +47,14 @@ class ClinicalRecordCreateView(LoginRequiredMixin, CreateView):
 
 class ClinicalRecordUpdateView(LoginRequiredMixin, UpdateView):
     model = ClinicalRecord
-    fields = ['pet_name', 'species', 'clinical_history', 'image']
+    fields = ['pet_name',
+    'age',
+    'species',
+    'clinical_history',
+    'rabia', 'rabia_doses',
+    'moquillo', 'moquillo_doses',
+    'parvovirus', 'parvovirus_doses',
+    'image']
     template_name = 'pages/clinicalrecord_form.html'
     success_url = reverse_lazy('pages:list')
 
@@ -63,3 +78,7 @@ class ClinicalRecordDeleteView(LoginRequiredMixin, DeleteView):
             '🗑️ Historial eliminado.'
         )
         return super().delete(request, *args, **kwargs)
+    
+@login_required
+def dashboard(request):
+    return render(request, 'pages/dashboard.html')

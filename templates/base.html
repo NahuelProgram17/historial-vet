@@ -24,89 +24,104 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
 
-                <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active fw-semibold{% endif %}"
-                href="{% url 'home' %}"> Home
-            </a>
+                <!-- Home -->
+                <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active fw-semibold{% endif %}"
+                       href="{% url 'home' %}">
+                        Home
+                    </a>
+                </li>
 
+                <!-- About -->
                 <li class="nav-item">
                     <a class="nav-link px-2" href="{% url 'about' %}">About</a>
                 </li>
 
+                <!-- Historiales -->
                 <li class="nav-item">
                     <a class="nav-link px-2" href="{% url 'pages:list' %}">Historiales</a>
                 </li>
 
                 {% if user.is_authenticated %}
+
+                    <!-- 🔐 Dashboard -->
+                    <li class="nav-item">
+                        <a class="nav-link px-2" href="{% url 'pages:dashboard' %}">
+                            Dashboard
+                        </a>
+                    </li>
+
+                    <!-- ✉️ Mensajes -->
+                    <li class="nav-item">
+                    <a class="nav-link px-2" href="{% url 'messenger:inbox' %}">
+                        Mensajes
+                    {% if unread_messages > 0 %}
+                    <span class="badge bg-danger ms-1">
+                    {{ unread_messages }}
+                    </span>
+                    {% endif %}
+                    </a>
+                    </li>
+                        
+                        
+                        
+                    
+
+                    <!-- Crear historial -->
                     <li class="nav-item">
                         <a class="btn btn-success btn-sm ms-lg-2" href="{% url 'pages:create' %}">
                             + Crear historial
                         </a>
                     </li>
 
+                    <!-- Perfil -->
                     <li class="nav-item">
                         <a class="nav-link px-2" href="{% url 'profile' %}">Perfil</a>
                     </li>
 
+                    <!-- Logout -->
                     <li class="nav-item">
                         <form method="post" action="{% url 'logout' %}">
                             {% csrf_token %}
-                            <button type="submit"
-                                class="btn btn-outline-light btn-sm ms-lg-2">
+                            <button type="submit" class="btn btn-outline-light btn-sm ms-lg-2">
                                 Logout
                             </button>
                         </form>
                     </li>
+
                 {% else %}
+
+                    <!-- Login -->
                     <li class="nav-item">
                         <a class="btn btn-outline-light btn-sm ms-lg-2" href="{% url 'login' %}">
                             Login
                         </a>
                     </li>
 
+                    <!-- Signup -->
                     <li class="nav-item">
                         <a class="btn btn-success btn-sm ms-lg-2" href="{% url 'signup' %}">
                             Registrarse
                         </a>
                     </li>
+
                 {% endif %}
             </ul>
         </div>
     </div>
 </nav>
 
-
 <div class="container mt-4">
 
+    <!-- ✅ Mensajes flash -->
     {% if messages %}
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         {% endfor %}
     {% endif %}
-
-    {% if messages %}
-<div class="container mt-3">
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    {% endfor %}
-</div>
-{% endif %}
-
-{% if messages %}
-<div class="container mt-3">
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }} alert-dismissible fade show shadow-sm" role="alert">
-            {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    {% endfor %}
-</div>
-{% endif %}
 
     {% block content %}
     {% endblock %}
