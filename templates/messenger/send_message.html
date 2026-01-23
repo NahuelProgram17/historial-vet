@@ -5,7 +5,8 @@
 {% block content %}
 <h2>✉️ Enviar mensaje</h2>
 
-<form method="post" enctype="multipart/form-data">
+<form method="post">
+
     {% csrf_token %}
 
     <div class="mb-3">
@@ -25,10 +26,7 @@
         <textarea name="content" class="form-control" required></textarea>
     </div>
 
-    <div class="mb-3">
-        <label class="form-label">Adjuntar archivo (opcional):</label>
-        <input type="file" name="attachment" class="form-control">
-    </div>
+    
 
     <button class="btn btn-success">Enviar</button>
 </form>

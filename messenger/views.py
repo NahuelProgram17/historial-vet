@@ -22,13 +22,13 @@ def send_message(request):
     if request.method == 'POST':
         receiver = User.objects.get(id=request.POST['receiver'])
         content = request.POST['content']
-        attachment = request.FILES.get('attachment')
+        
 
         Message.objects.create(
             sender=request.user,
             receiver=receiver,
             content=content,
-            attachment=attachment
+            
         )
 
         messages.success(request, '📨 Mensaje enviado correctamente')
@@ -38,3 +38,10 @@ def send_message(request):
         'users': users,
         'receiver_id': receiver_id
     })
+    
+@login_required
+def delete_message(request, message_id):
+    message = Message.objects.get(id=message_id, receiver=request.user)
+    message.delete()
+    messages.success(request, '🗑️ Mensaje eliminado')
+    return redirect('messenger:inbox')
